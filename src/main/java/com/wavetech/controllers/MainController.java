@@ -3,6 +3,7 @@ package com.wavetech.controllers;
 import com.wavetech.models.FeedbackModel;
 import com.wavetech.services.FeedbackService;
 import com.wavetech.services.ProdutoService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,10 @@ public class MainController {
 
     @GetMapping("/")
     public String showHomePage(Model model) {
+        Gson gson = new Gson();
         List<FeedbackModel> listaFeedbacks = feedbackService.listAll();
-        model.addAttribute("listaFeedbacks", listaFeedbacks);
-
-        List<FeedbackModel> listaProdutos = feedbackService.listAll();
-        model.addAttribute("listaProdutos", listaProdutos);
+        String jsonFeedback = gson.toJson(listaFeedbacks);
+        model.addAttribute("listaFeedbacks", jsonFeedback);
 
         return "index";
     }

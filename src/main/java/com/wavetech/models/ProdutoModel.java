@@ -13,4 +13,11 @@ public class ProdutoModel
     @Column(nullable = false, length = 50)
     private String nome;
 
+    @Override
+    public String toString() {
+        return "ProdutoModel{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

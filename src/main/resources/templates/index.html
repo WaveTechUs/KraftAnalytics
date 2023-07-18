@@ -21,28 +21,8 @@
 </div>
 <script>
     const listaFeedbacks = '[[${listaFeedbacks}]]';
-    const listaProdutos = '[[${listaProdutos}]]';
-    const stringToObject = (inputString) => {
-        const cleanedString = inputString.replace(/&#39;/g, "\"");
-        const modelNameMatch = cleanedString.match(/\[(\w+)/);
-        const modelName = modelNameMatch ? modelNameMatch[1] : null;
-        let arrayOfObjects = [];
-        if (modelName) {
-            const modelRegex = new RegExp(modelName, "g");
-            const validJSONString = cleanedString.replace(modelRegex, '').replace(/(\w+)=/g, '"$1":');
-
-            arrayOfObjects = JSON.parse(validJSONString);
-        } else {
-            arrayOfObjects = [{message: "Nome do modelo não encontrado na string de entrada."}];
-        }
-        return arrayOfObjects;
-    }
-
-    const feedbacks = stringToObject(listaFeedbacks);
-    const produtos = stringToObject(listaProdutos);
-
-    console.log(produtos)
-
+    const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
+    const feedbacks = JSON.parse(jsonStringFixed);
 </script>
 <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

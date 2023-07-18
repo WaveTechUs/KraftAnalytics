@@ -1,5 +1,6 @@
 package com.wavetech.models;
 
+import com.wavetech.models.ProdutoModel;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -23,8 +24,9 @@ public class FeedbackModel {
     @Column(length = 45, nullable = false)
     private String comentario;
 
-    @Column(length = 45, nullable = false)
-    private int fk_produto;
+    @ManyToOne // ou @OneToOne, dependendo do relacionamento
+    @JoinColumn(name = "fk_produto", nullable = false) // nome da coluna FK na tabela Feedback
+    private ProdutoModel fk_produto;
 
     @Override
     public String toString() {

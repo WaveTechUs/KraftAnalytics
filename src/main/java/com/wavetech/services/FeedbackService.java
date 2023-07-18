@@ -12,6 +12,8 @@ public class FeedbackService {
     @Autowired private IFeedbackRepository repo;
 
     public List<FeedbackModel> listAll(){
-        return (List<FeedbackModel>) repo.findAll();
+        List<FeedbackModel> feedbacks = (List<FeedbackModel>) repo.findAll();
+
+        return feedbacks;
     }
 }
