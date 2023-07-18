@@ -4,4 +4,7 @@
 
 .chart-box{
     /*background-color: rebeccapurple;*/
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
