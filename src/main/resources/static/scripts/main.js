@@ -66,6 +66,16 @@ function geoChartMaker(){
     geoChart();
 }
 
+function formataData(dataSemFormatacao){
+    const dateString = dataSemFormatacao;
+    const dateObj = new Date(dateString);
+    const day = dateObj.getDate().toString().padStart(2, "0");
+    const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+    const year = dateObj.getFullYear().toString().slice(-2);
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+}
+
 google.charts.load('current', {'packages':['line']});
 google.charts.setOnLoadCallback(drawChart);
 
@@ -74,20 +84,19 @@ function drawChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Dias');
     data.addColumn('number', 'Quantidades de Feedback');
+    const objetosPorData = {};
 
-    //TODO: FAZER LÓGICA DE SOMA POR DIA DOS FEEDBACKS
-    feedbacks.forEach((item)=>{
-        console.log(data);
-        const dateString = item.data;
-        const dateObj = new Date(dateString);
-        const day = dateObj.getDate().toString().padStart(2, "0");
-        const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-        const year = dateObj.getFullYear().toString().slice(-2);
-        const formattedDate = `${day}/${month}/${year}`;
+    feedbacks.forEach((objeto) => {
+        const data = objeto.data;
+        const dataFormatada = formataData(data);
+        objetosPorData[dataFormatada] = (objetosPorData[dataFormatada] || 0) + 1;
+    });
+
+    Object.keys(objetosPorData).forEach((dataFormatada) => {
         data.addRows([
-            [formattedDate,  10]
+            [dataFormatada,  objetosPorData[dataFormatada]]
         ]);
-    })
+    });
 
     var options = {
         chart: {
