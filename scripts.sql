@@ -9,3 +9,6 @@ INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `f
 INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `fk_produto`, `tipo_esg`) VALUES ('Muito bom', '2023-07-19', 'BR-SP', '1', 'Ambiental');
 INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `fk_produto`, `tipo_esg`) VALUES ('Muito bom', '2023-07-20', 'BR-SP', '2', 'Ambiental');
 INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `fk_produto`, `tipo_esg`) VALUES ('Muito bom', '2023-07-17', 'BR-SP', '1', 'Ambiental');
+INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `fk_produto`, `tipo_esg`) VALUES ('Muito bom', '2023-07-17', 'BR-SP', '2', 'Ambiental');
+INSERT INTO `usersdb`.`feedback` (`comentario`, `data do feedback`, `estado`, `fk_produto`, `tipo_esg`) VALUES ('Muito bom', '2023-07-17', 'BR-SP', '1', 'Ambiental');
+
