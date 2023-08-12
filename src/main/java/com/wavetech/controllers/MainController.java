@@ -1,6 +1,7 @@
 package com.wavetech.controllers;
 
 import com.wavetech.models.FeedbackModel;
+import com.wavetech.models.ProdutoModel;
 import com.wavetech.services.FeedbackService;
 import com.wavetech.services.ProdutoService;
 import com.google.gson.Gson;
@@ -24,6 +25,10 @@ public class MainController {
         List<FeedbackModel> listaFeedbacks = feedbackService.listAll();
         String jsonFeedback = gson.toJson(listaFeedbacks);
         model.addAttribute("listaFeedbacks", jsonFeedback);
+
+        List<ProdutoModel> listaProduto = produtoService.listAll();
+        String jsonProduto = gson.toJson(listaProduto);
+        model.addAttribute("listaProduto", jsonProduto);
 
         return "index";
     }

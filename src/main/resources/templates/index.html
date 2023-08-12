@@ -15,8 +15,42 @@
     <div><h2>Gráfico de Produtos no Brasil</h2></div>
 
     <div class="chart-box">
-        <div id="geochart" style="width: 900px; height: 500px;"></div>
-        <div id="chart_div" style="width: 900px; height: 500px;"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col" >
+                    <div id="geochart" ></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="chart_div" ></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="geochart2" ></div>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="row">
+                <div class="col-4">
+                    <button onclick="mudaTipoTendencia('linear')">Linear</button>
+                </div>
+                <div class="col-4">
+                    <button onclick="mudaTipoTendencia('exponential')">Exponencial</button>
+                </div>
+                <div class="col-4">
+                    <button onclick="mudaTipoTendencia('polynomial')">Polinomial</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="chart_div2" ></div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -24,6 +58,10 @@
     const listaFeedbacks = '[[${listaFeedbacks}]]';
     const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
     const feedbacks = JSON.parse(jsonStringFixed);
+
+    const listaProduto = '[[${listaProduto}]]';
+    const jsonProdutoStringFixed = listaProduto.replace(/&quot;/g, '"');
+    const produtos = JSON.parse(jsonProdutoStringFixed);
 </script>
 <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
