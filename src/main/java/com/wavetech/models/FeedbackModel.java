@@ -18,6 +18,9 @@ public class FeedbackModel {
     @Column(length = 15, nullable = false)
     private String estado;
 
+    @Column(nullable = false)
+    private Integer nota;
+
     @Column(length = 45, nullable = false, name = "Data do Feedback")
     private Date data;
 
@@ -34,6 +37,7 @@ public class FeedbackModel {
                 "id=" + id +
                 ", tipo_esg='" + tipo_esg + '\'' +
                 ", estado='" + estado + '\'' +
+                ", nota='" + nota + '\'' +
                 ", data='" + data + "'" +
                 ", comentario='" + comentario + '\'' +
                 ", fk_produto=" + fk_produto +
