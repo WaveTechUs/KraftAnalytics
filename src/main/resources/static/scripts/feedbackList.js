@@ -1,5 +1,11 @@
 fillTable(feedbacks)
 function fillTable(feedbacks){
+    const table = document.querySelector('#feedback-table');
+
+    while (table.firstChild) {
+        table.removeChild(table.firstChild);
+    }
+
     let linhas = [];
     feedbacks.forEach(feedback => {
         feedback.data = feedback.data.replace(/\u202F/g, ' ');
@@ -19,8 +25,6 @@ function fillTable(feedbacks){
         linhas.push(linha);
     })
 
-    const table =   document.querySelector('#feedback-table');
-
     linhas.map( linha => {
         let row = table.insertRow();
         let data = row.insertCell(0);
@@ -36,11 +40,21 @@ function fillTable(feedbacks){
     })
 }
 
-const selectElement = document.getElementById("esg");
+
+const selectElement = document.getElementById('esg');
+const produtoInput = document.getElementById('product-input');
 
 selectElement.addEventListener("change", function() {
     const selectedValue = selectElement.value;
     console.log("Opção selecionada: " + selectedValue);
 
-    // Coloque aqui o código que você deseja executar quando uma opção for selecionada
+});
+
+produtoInput.addEventListener('input', function(event) {
+    const textoDigitado = event.target.value;
+    const feedbackFiltered = feedbacks.filter( (f) => {
+        const productName = f.fk_produto.nome.toLowerCase();
+        return productName.includes(textoDigitado.toLowerCase());
+    });
+    fillTable(feedbackFiltered);
 });
