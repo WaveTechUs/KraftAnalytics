@@ -1,0 +1,28 @@
+main{
+    margin: 15vh 20vh 5vh 20vh;
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection-dropbox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 10vh;
+}
+
+.selection-dropbox .option-button-block .select-block{
+    width: 100%;
+}
+
+.table-container{
+    width: 100%;
+}
+.table-container .search-bar .input-product{
+    width: 100%;
+}

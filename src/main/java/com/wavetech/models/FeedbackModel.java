@@ -27,8 +27,8 @@ public class FeedbackModel {
     @Column(length = 45, nullable = false)
     private String comentario;
 
-    @ManyToOne // ou @OneToOne, dependendo do relacionamento
-    @JoinColumn(name = "fk_produto", nullable = false) // nome da coluna FK na tabela Feedback
+    @ManyToOne
+    @JoinColumn(name = "fk_produto", nullable = false)
     private ProdutoModel fk_produto;
 
     @Override
