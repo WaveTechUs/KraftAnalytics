@@ -6,56 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/root.css}">
     <link rel="stylesheet" th:href="@{/css/pages/charts.css}">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
-<div class="container-fluid text-center" style="width: 900px; margin-top: 5vh;">
-    <button onclick="window.location.href='http://localhost:8080/Feedback'">Feedbacks</button>
-    <button onclick="window.location.href='http://localhost:8080/Chart'">Gráficos</button>
-    <div><h2>Gráfico de Produtos no Brasil</h2></div>
+<div class="chart-box">
+    <div class="container">
+        <button onclick="window.location.href='http://localhost:8080'">Voltar</button>
+        <form id="typeEsgDrop">
+            <label for="esg">Escolha um Tipo ESG:</label>
+            <select name="esg" id="esg">
+                <option value="padrao">Padrão</option>
+                <option value="ambiental">Ambiental</option>
+                <option value="governanca">Governança</option>
+                <option value="social">Social</option>
+            </select>
+        </form>
 
-    <div class="chart-box">
-        <div class="container">
-            <div class="row">
-                <div class="col" >
-                    <div id="geochart" ></div>
-                </div>
+        <form id="typeChart">
+            <label for="chart">Escolha um Tipo de Gráfico:</label>
+            <select name="chart" id="chart">
+                <option value="lineChart">Linha de Tendência</option>
+                <option value="geoChart">Gráfico Geográfico</option>
+            </select>
+        </form>
+        <div class="row">
+            <div class="col-4">
+                <button id="button_linear"  onclick="mudaTipoTendencia('linear')">Linear</button>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div id="chart_div" ></div>
-                </div>
+            <div class="col-4">
+                <button  id="button_expo" onclick="mudaTipoTendencia('exponential')">Exponencial</button>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div id="geochart2" ></div>
-                </div>
-            </div>
-            <br><br><br>
-            <div class="row">
-                <div class="col-4">
-                    <button onclick="mudaTipoTendencia('linear')">Linear</button>
-                </div>
-                <div class="col-4">
-                    <button onclick="mudaTipoTendencia('exponential')">Exponencial</button>
-                </div>
-                <div class="col-4">
-                    <button onclick="mudaTipoTendencia('polynomial')">Polinomial</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div id="chart_div2" ></div>
-                </div>
-
+            <div class="col-4">
+                <button id="button_poly" onclick="mudaTipoTendencia('polynomial')">Polinomial</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div id="chart_div"></div>
+            </div>
 
+        </div>
     </div>
-
 </div>
 <script>
     const listaFeedbacks = '[[${listaFeedbacks}]]';
@@ -66,7 +59,7 @@
     const jsonProdutoStringFixed = listaProduto.replace(/&quot;/g, '"');
     const produtos = JSON.parse(jsonProdutoStringFixed);
 </script>
-<script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+<script type="text/javascript" th:src="@{/scripts/charts.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
