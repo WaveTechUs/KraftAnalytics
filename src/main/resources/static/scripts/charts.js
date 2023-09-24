@@ -5,8 +5,15 @@ let  typeChart = document.getElementById("chart");
 
 let selectedChart ='lineChart';
 let  selectedEsg = 'padrao';
-
-//Gerar grafrico especifico
+//Visão geral dos graficos
+let total = feedbacks.length;
+let totalAmbiental = 0;
+let totalSocial = 0;
+let totalGovernanca = 0;
+const contagemEstados = {};
+const contagemEstadosBons = {};
+const contagemEstadosRuins = {};
+//Gerar grafico especifico
 const filaBom ={};
 const filaRuim ={};
 const geofilaBom ={};
@@ -24,7 +31,9 @@ const listaTipoEsgPelaData = esgInfoAllPelaData();
 // Chamar functions
 buttonShowOrNot();
 esgEspecifico();
-
+fillTotal();
+detailDefaultLine();
+top3States();
 
 typeChart.addEventListener("change", function () {
     selectedChart = typeChart.value;
@@ -65,23 +74,28 @@ function buttonShowOrNot(){
 
 }
 function gerarChart(selectedEsg= 'padrao', selectedChart = 'lineChart') {
+    clearDetails();
     if (selectedChart == 'lineChart') {
         switch (selectedEsg) {
             case 'ambiental':
                 drawLogScalesEspecifico();
                 buttonShowOrNot();
+                detailSpeficLine(totalAmbiental, selectedEsg);
                 break;
             case 'governanca':
                 drawLogScalesEspecifico();
                 buttonShowOrNot();
+                detailSpeficLine(totalGovernanca, selectedEsg);
                 break;
             case 'social':
                 drawLogScalesEspecifico();
                 buttonShowOrNot();
+                detailSpeficLine(totalSocial, selectedEsg);
                 break;
             case 'padrao':
                 drawLogScales();
                 buttonShowOrNot();
+                detailDefaultLine();
                 break;
         }
     }
@@ -90,22 +104,25 @@ function gerarChart(selectedEsg= 'padrao', selectedChart = 'lineChart') {
             case 'ambiental':
                 drawGeoMapEspecifico();
                 buttonShowOrNot();
+                detailSpeficGeo(totalAmbiental, selectedEsg);
                 break;
             case 'governanca':
                 drawGeoMapEspecifico();
                 buttonShowOrNot();
+                detailSpeficGeo(totalGovernanca, selectedEsg);
                 break;
             case 'social':
                 drawGeoMapEspecifico();
                 buttonShowOrNot();
+                detailSpeficGeo(totalSocial, selectedEsg);
                 break;
             default:
                 drawGeoMapAll();
                 buttonShowOrNot();
+                detailDefaultGeo();
                 break;
         }
     }
-
 }
 
 function esgEspecifico() {
@@ -411,3 +428,134 @@ function drawGeoMapAll() {
 
     geoChart();
 }
+
+function fillTotal(){
+    feedbacks.forEach((feedback)=>{
+        let esg = feedback.tipo_esg;
+        if(esg == "Ambiental"){totalAmbiental++}
+        if(esg == "Social"){totalSocial++}
+        if(esg == "Governanca"){totalGovernanca++}
+    });
+}
+
+function top3States(){
+    for (const feedback of feedbacks) {
+        const estado = feedback.estado;
+        contagemEstados[estado] = (contagemEstados[estado] || 0) + 1;
+    }
+    for (const feedback of feedbacks) {
+        const estado = feedback.estado;
+        const nota = feedback.nota;
+
+        if (nota > 6) {
+            contagemEstadosBons[estado] = (contagemEstadosBons[estado] || 0) + 1;
+        }
+    }
+    for (const feedback of feedbacks) {
+        const estado = feedback.estado;
+        const nota = feedback.nota;
+
+        if (nota > 6) {
+            contagemEstadosRuins[estado] = (contagemEstadosRuins[estado] || 0) + 1;
+        }
+    }
+}
+function clearDetails(){
+    for(let i =1; i<9; i++){
+        const field = document.querySelector('#field-'+i);
+        field.innerHTML = "";
+    }
+
+}
+function detailDefaultLine(){
+    const totalElementos = document.querySelector('#field-1');
+    const ambiental = document.querySelector('#field-2');
+    const social = document.querySelector('#field-3');
+    const governanca = document.querySelector('#field-4');
+
+    totalElementos.innerHTML = "Total: <br>" + total;
+    ambiental.innerHTML = "Ambiental: <br>" + totalAmbiental + " / " + Math.round((totalAmbiental/total)*100) +"%";
+    social.innerHTML = "Social: <br>" + totalSocial  + " / " + Math.round((totalSocial/total)*100) +"%";
+    governanca.innerHTML = "Governança: <br>" + totalGovernanca  + " / " + Math.round((totalGovernanca/total)*100) +"%";
+
+}
+
+function detailDefaultGeo(){
+    const totalElementos = document.querySelector('#field-1');
+    const ambiental = document.querySelector('#field-2');
+    const social = document.querySelector('#field-3');
+    const governanca = document.querySelector('#field-4');
+    const top3Title = document.querySelector('#field-5');
+    const top1State = document.querySelector('#field-6');
+    const top2State = document.querySelector('#field-7');
+    const top3State = document.querySelector('#field-8');
+
+    //Array do top 3
+    const arrayContagem = Object.entries(contagemEstados);
+    arrayContagem.sort((a, b) => b[1] - a[1]);
+
+    totalElementos.innerHTML = "Total: <br>" + total;
+    ambiental.innerHTML = "Ambiental: <br>" + totalAmbiental + " / " + Math.round((totalAmbiental/total)*100) +"%";
+    social.innerHTML = "Social: <br>" + totalSocial  + " / " + Math.round((totalSocial/total)*100) +"%";
+    governanca.innerHTML = "Governança: <br>" + totalGovernanca  + " / " + Math.round((totalGovernanca/total)*100) +"%";
+    top3Title.innerHTML= "<h6>Top 3 Estados Com Mais Feedbacks:</h6>";
+    top1State.innerHTML = "1- " + arrayContagem[0][0] + "-" + arrayContagem[0][1] +"<br>";
+    top2State.innerHTML = "2- " + arrayContagem[1][0] + "-" + arrayContagem[1][1] +"<br>";
+    top3State.innerHTML = "3- " + arrayContagem[2][0] + "-" + arrayContagem[2][1] +"<br>";
+}
+
+function detailSpeficGeo(total, tipo_esg){
+    const totalElementos = document.querySelector('#field-1');
+    const feedbacksBons = document.querySelector('#field-2');
+    const feedbacksRuins = document.querySelector('#field-3');
+    const top3Title = document.querySelector("#field-4");
+    const top1State = document.querySelector('#field-5');
+    const top2State = document.querySelector('#field-6');
+    const top3State = document.querySelector('#field-7');
+
+    let totalBons =0;
+    let totalRuins = 0;
+    Object.keys(filaBom).forEach((dia) =>{
+        totalBons+= filaBom[dia][tipo_esg].quantidade;
+        totalRuins+= filaRuim[dia][tipo_esg].quantidade;
+    });
+
+    //Array do top 3
+    const arrayContagemBom = Object.entries(contagemEstadosBons);
+    arrayContagemBom.sort((a, b) => b[1] - a[1]);
+    const arrayContagemRuim = Object.entries(contagemEstadosRuins);
+    arrayContagemRuim.sort((a, b) => b[1] - a[1]);
+
+    totalElementos.innerHTML = "Total: <br>" + total;
+    feedbacksBons.innerHTML = "Feedbacks Positivos: <br>" + totalBons + " / " + Math.round((totalBons/total)*100) +"%";
+    feedbacksRuins.innerHTML = "Feedbacks Negativos: <br>" + totalRuins + " / " + Math.round((totalRuins/total)*100) +"%";
+    top3Title.innerHTML= "<h6>Top 3 Estados Com Mais Feedbacks:</h6>";
+    top1State.innerHTML = "1- " + arrayContagemBom[0][0] + "-" + arrayContagemBom[0][1] + " | " + "1- " + arrayContagemRuim[0][0] + "-" + arrayContagemRuim[0][1] +  "<br>";
+    top2State.innerHTML = "2- " + arrayContagemBom[1][0] + "-" + arrayContagemBom[1][1] + " | " + "2- " + arrayContagemRuim[1][0] + "-" + arrayContagemRuim[1][1] +  "<br>";
+    top3State.innerHTML = "3- " + arrayContagemBom[2][0] + "-" + arrayContagemBom[2][1] + " | " + "3- " + arrayContagemRuim[2][0] + "-" + arrayContagemRuim[2][1] +  "<br>";
+}
+function detailSpeficLine(total, tipo_esg){
+    const totalElementos = document.querySelector('#field-1');
+    const feedbacksBons = document.querySelector('#field-2');
+    const feedbacksRuins = document.querySelector('#field-3');
+    const r2 = document.querySelector("#field-4");
+
+    let totalBons =0;
+    let totalRuins = 0;
+    Object.keys(filaBom).forEach((dia) =>{
+        totalBons+= filaBom[dia][tipo_esg].quantidade;
+        totalRuins+= filaRuim[dia][tipo_esg].quantidade;
+    });
+
+    //Array do top 3
+    const arrayContagemBom = Object.entries(contagemEstadosBons);
+    arrayContagemBom.sort((a, b) => b[1] - a[1]);
+    const arrayContagemRuim = Object.entries(contagemEstadosRuins);
+    arrayContagemRuim.sort((a, b) => b[1] - a[1]);
+
+    totalElementos.innerHTML = "Total: <br>" + total;
+    feedbacksBons.innerHTML = "Feedbacks Positivos: <br>" + totalBons + " / " + Math.round((totalBons/total)*100) +"%";
+    feedbacksRuins.innerHTML = "Feedbacks Negativos: <br>" + totalRuins + " / " + Math.round((totalRuins/total)*100) +"%";
+
+}
+

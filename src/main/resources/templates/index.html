@@ -27,6 +27,32 @@
         </div>
     </div>
 </div>
+<div class="modal-content">
+    <div class="modal-header">
+            <h3 class="modal-title" id="visao-geral">Visão Geral do Gráfico</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="modal-body">
+                    <h5 class="modal-text" id="name-product">Produto Com Mais Feedbacks: </h5>
+                    <p class="modal-text" id="quant-feedback-product">Quantidade: <br></p>
+                    <p class="modal-text" id="state-product">Estados: <br></p>
+                    <p  class="modal-text" id="average-product-grade">Média da Nota: <br></p>
+                    <p  class="modal-text" id="average-product-esg">Tipo ESG com + frequencia: <br></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="modal-body">
+                    <h5 class="modal-text" id="name-esg">Tipo ESG Com Mais Feedbacks: </h5>
+                    <p class="modal-text" id="quant-feedback-esg">Quantidade: <br></p>
+                    <p class="modal-text" id="state-esg">Estados: <br></p>
+                    <p  class="modal-text" id="average-esg-grade">Média da Nota: <br></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     const listaFeedbacks = '[[${listaFeedbacks}]]';
     const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
