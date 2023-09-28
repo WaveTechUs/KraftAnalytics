@@ -1,89 +1,121 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Feedbacks</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/root.css}">
-<link rel="stylesheet" th:href="@{/css/pages/feedback.css}">
-</head>
-<body>
-<main>
-    <div class="selection-dropbox">
-        <label for="esg">Escolha o filtro por ESG</label>
-        <div class="option-button-block">
-            <select id="esg" class="select-block">
-                <option value="Todos" selected>Todos</option>
-                <option value="Ambiental">Ambiental</option>
-                <option value="Social">Social</option>
-                <option value="Governança">Governança</option>
-            </select>
-        </div>
-    </div>
-    <div class="table-container">
-        <div class="search-bar">
-            <input id="product-input" class="input-product" type="text" placeholder="Procure pelo nome do produto"></input>
-        </div>
-        <div class="table-block">
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col">ESG</th>
-                    <th scope="col">Nota</th>
-                    <th scope="col">Detalhe</th>
-                </tr>
-                </thead>
-                <tbody id="feedback-table">
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <meta charset="UTF-8">
+    <title>Feedbacks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/feedback.css}">
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Feedback</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+</head>
+
+<body>
+    <div class="row adj"></div>
+    <div class="row main">
+        <nav class="col-2 mx-5">
+            <h1>WAVE<span>TECH</span></h1>
+            <ul>
+                <li><button onclick="window.location.href='http://localhost:8080/Chart'" class="btn">Gráficos</button></li>
+                <li><button onclick="window.location.href='http://localhost:8080/'" class="btn">Voltar</button></li>
+            </ul>
+            <img th:src="@{/images/logo-wavetech.jpeg}" class="img-circle">
+        </nav>
+        <div class="selection-dropbox col-9">
+            <div class="content">
+                <label for="esg"><h2>Escolha o filtro por ESG</h2></label>
+                <div class="option-button-block adjtable">
+                    <input id="product-input" class="input-product" type="text" placeholder="Procure pelo nome do produto"></input>
+                    <select id="esg" class="select-block">
+                        <option value="Todos" selected>Todos</option>
+                        <option value="Ambiental">Ambiental</option>
+                        <option value="Social">Social</option>
+                        <option value="Governança">Governança</option>
+                    </select>
                 </div>
-                <div class="modal-body">
-                    <h3 class="modal-text"  id="date">
-                        Data:
-                    </h3>
-                    <p class="modal-text" id="state">Estado: <br></p>
-                    <p class="modal-text" id="esg-detail">ESG: <br></p>
-                    <p  class="modal-text" id="grade">Nota: <br></p>
-                    <p  class="modal-text" id="product-name">Nome Produto: <br></p>
-                    <p  class="modal-text" id="comment">Comentário: <br></p>
+
+                <div class="table-container">
+                    <div class="table-block">
+                        <table class="table" id="feedback-table">
+                            <thead class="thead-dark">
+                            <tr class="text-center">
+                                <th scope="col">Data</th>
+                                <th scope="col">Produto</th>
+                                <th scope="col">ESG</th>
+                                <th scope="col">Nota</th>
+                                <th scope="col">Detalhe</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Feedback</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="modal-text"  id="date">
+                                    Data:
+                                </p>
+                                <p class="modal-text" id="state">Estado: <br></p>
+                                <p class="modal-text" id="esg-detail">ESG: <br></p>
+                                <p  class="modal-text" id="grade">Nota: <br></p>
+                                <p  class="modal-text" id="product-name">Nome Produto: <br></p>
+                                <p  class="modal-text" id="comment">Comentário: <br></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+    <div class="row adj d-flex justify-content-center">
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">Desenvolvido pelo grupo Wavetech |
+                Todos os direitos reservados a KraftHeinz |
+                Insc Municipal
+                123.456-7 |
+                Município
+                São Paulo - SP |
+                R XPTO, 1234 - CENTRO | CEP: 12345-678 </p>
+        </footer>
+    </div>
 
-<script>
-const listaFeedbacks = '[[${listaFeedbacks}]]';
-const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
-const feedbacks = JSON.parse(jsonStringFixed);
-</script>
-<script type="text/javascript" th:src="@{/scripts/feedbackList.js}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    <script>
+        const listaFeedbacks = '[[${listaFeedbacks}]]';
+        const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
+        const feedbacks = JSON.parse(jsonStringFixed);
+    </script>
+    <script type="text/javascript" th:src="@{/scripts/feedbackList.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 </body>
 </html>

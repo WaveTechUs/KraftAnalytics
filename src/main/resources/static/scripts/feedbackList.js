@@ -81,12 +81,12 @@ function detail(feedbackId){
     const comment = document.querySelector('#comment');
     const grade = document.querySelector('#grade');
 
-    date.innerHTML = "Data: <br>";
-    state.innerHTML = "Estado: <br>";
-    esg.innerHTML = "Nota: <br>";
-    productName.innerHTML = "Nome produto: <br>";
-    comment.innerHTML = "Comentário: <br>";
-    grade.innerHTML = "Nota: <br>";
+    date.innerHTML = "<b>Data:</b> <br>";
+    state.innerHTML = "<b>Estado:</b> <br>";
+    esg.innerHTML = "<b>Nota:</b> <br>";
+    productName.innerHTML = "<b>Nome produto:</b> <br>";
+    comment.innerHTML = "<b>Comentário:</b> <br>";
+    grade.innerHTML = "<b>Nota:</b> <br>";
 
     date.innerHTML += formataData(feedbackSelected[0].data);
     state.innerHTML += feedbackSelected[0].estado;
@@ -106,3 +106,63 @@ function formataData(feedbackData){
     });
     return dataFormatada;
 }
+
+// Certifique-se de que a variável feedbacks contenha os dados corretos antes de chamar esta função
+function fillTable(feedbacks) {
+    const tableBody = document.querySelector('#feedback-table tbody');
+    tableBody.innerHTML = ''; // Limpa o conteúdo atual da tabela
+
+    feedbacks.forEach(feedback => {
+        const dataFormatada = formataData(feedback.data);
+
+        let linha = {
+            "Data": dataFormatada,
+            "Produto": feedback.fk_produto.nome,
+            "ESG": feedback.tipo_esg,
+            "Nota": feedback.nota,
+            "Id": feedback.id,
+        };
+
+        let row = tableBody.insertRow();
+        let data = row.insertCell(0);
+        data.textContent = linha["Data"];
+        let produto = row.insertCell(1);
+        produto.textContent = linha["Produto"];
+        let ESG = row.insertCell(2);
+        ESG.textContent = linha["ESG"];
+        let nota = row.insertCell(3);
+        nota.textContent = linha["Nota"];
+        let detalhe = row.insertCell(4);
+        let button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn btn-primary";
+        button.setAttribute("data-toggle", "modal");
+        button.setAttribute("onclick", `detail(${linha.Id})`);
+        button.setAttribute("data-target", "#exampleModal");
+        button.textContent = "Ver detalhes";
+        detalhe.appendChild(button);
+    });
+}
+
+
+$(document).ready(function () {
+    // Certifique-se de que a variável feedbacks contenha os dados corretos antes de chamar esta função
+    fillTable(feedbacks);
+
+    // Inicialize o DataTables aqui
+    if ($.fn.DataTable) {
+        if ($.fn.DataTable.isDataTable('#feedback-table')) {
+            $('#feedback-table').DataTable().destroy();
+        }
+
+        $('#feedback-table').DataTable({
+            "paging": true,
+            "pageLength": 5,
+            "lengthChange": false,
+            "searching": false
+        });
+    } else {
+        console.error("DataTables não está disponível. Verifique se você incluiu a biblioteca corretamente.");
+    }
+});
+

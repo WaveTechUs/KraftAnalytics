@@ -4,6 +4,7 @@
     <title>User's List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" th:href="@{/images/logo-wavetech.jpeg}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/root.css}">
@@ -11,40 +12,61 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
+    <div class="row adj"></div>
+    <div class="row main">
+        <nav class="col-2 mx-5">
+            <h1>WAVE<span>TECH</span></h1>
+            <ul>
+                <li><button onclick="window.location.href='http://localhost:8080/Feedback'" class="btn">Feedbacks</button></li>
+                <li><button onclick="window.location.href='http://localhost:8080/Chart'" class="btn">Gráficos</button></li>
+            </ul>
+            <img th:src="@{/images/logo-wavetech.jpeg}" class="img-circle">
+        </nav>
+        <div class="text-center col-9">
+            <div class="content">
+                <div class="mt-5"><h2>Gráfico de Produtos no Brasil</h2></div>
 
-<div class="container-fluid text-center" style="width: 900px; margin-top: 5vh;">
-    <button onclick="window.location.href='http://localhost:8080/Feedback'">Feedbacks</button>
-    <button onclick="window.location.href='http://localhost:8080/Chart'">Gráficos</button>
-    <div><h2>Gráfico de Produtos no Brasil</h2></div>
-
-    <div class="chart-box">
-        <div class="container">
-            <div class="row">
-                <div class="col" >
-                    <div id="geochart" ></div>
+                <div class="chart-box">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col graphic-content">
+                                <div id="geochart"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    const listaFeedbacks = '[[${listaFeedbacks}]]';
-    const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
-    const feedbacks = JSON.parse(jsonStringFixed);
+    <div class="row adj d-flex justify-content-center">
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">Desenvolvido pelo grupo Wavetech |
+                Todos os direitos reservados a KraftHeinz |
+                Insc Municipal
+                123.456-7 |
+                Município
+                São Paulo - SP |
+                R XPTO, 1234 - CENTRO | CEP: 12345-678 </p>
+        </footer>
+    </div>
+    <script>
+        const listaFeedbacks = '[[${listaFeedbacks}]]';
+        const jsonStringFixed = listaFeedbacks.replace(/&quot;/g, '"');
+        const feedbacks = JSON.parse(jsonStringFixed);
 
-    const listaProduto = '[[${listaProduto}]]';
-    const jsonProdutoStringFixed = listaProduto.replace(/&quot;/g, '"');
-    const produtos = JSON.parse(jsonProdutoStringFixed);
-</script>
-<script type="text/javascript" th:src="@{/scripts/main.js}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        const listaProduto = '[[${listaProduto}]]';
+        const jsonProdutoStringFixed = listaProduto.replace(/&quot;/g, '"');
+        const produtos = JSON.parse(jsonProdutoStringFixed);
+    </script>
+    <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 </html>
