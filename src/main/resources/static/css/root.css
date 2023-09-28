@@ -12,6 +12,7 @@
     --color-sec: #2a658f;
 }
 
+<<<<<<< HEAD
 h1 {
     color: #000000;
     margin: 30px auto;
@@ -86,4 +87,12 @@ ul {
 .img-circle {
     border-radius: 100px;
     margin-top: 230px;
+=======
+.container{
+    width: 100%;
+}
+.modal-title{
+    width: 100%;
+    text-align: center;
+>>>>>>> 76a7379003d7fa26b1cc2d1d18d46316430a9d0b
 }
