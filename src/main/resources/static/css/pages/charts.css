@@ -5,3 +5,29 @@
     align-content: center;
 }
 
+.teste {
+    margin: 30px;
+}
+
+.adjform {
+    margin-right: 5px;
+}
+
+.adjform2 {
+    margin-right: 50px;
+    margin-left: 5px;
+}
+
+.adjbtn {
+    margin-top: -5px;
+}
+
+
+.col {
+    padding: 0 !important;
+}
+
+.decoration{
+    border: 1px solid var(--color-sec);
+}
+

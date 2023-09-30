@@ -22,9 +22,24 @@ main{
     width: 100%;
 }
 
-.select-block, .input-product {
-    width: 100%;
+.select-block {
+    width: 1350px;
     border: 1px solid var(--color-sec);
+}
+
+.input-product {
+    width: 0%;
+}
+
+#feedback-table_filter > label > input[type=search] {
+    width: 1353px;
+    border: 1px solid var(--color-sec);
+    border-radius: 0px;
+    margin-left: 2px !important;
+}
+
+.input-product {
+    display: none;
 }
 
 .adjtable{
@@ -42,4 +57,14 @@ main{
     width: 50%;
     margin-left: 2px;
 }
+
+th {
+    text-align: center !important;
+}
+
+
+
+
+
+
 

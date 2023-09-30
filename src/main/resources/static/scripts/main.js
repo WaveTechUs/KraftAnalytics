@@ -56,12 +56,13 @@ function geoChartMaker(){
             region: 'BR',
             resolution: 'provinces',
             colorAxis: { colors: ['lightgreen', 'darkgreen'] },
-            backgroundColor: '#ffffff',
+            backgroundColor: '#FBFBFB',
             datalessRegionColor: '#ffffff',
             defaultColor: '#f5f5f5',
             width: 800,
             height: 600
         };
+
 
         var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
         chart.draw(data, options);

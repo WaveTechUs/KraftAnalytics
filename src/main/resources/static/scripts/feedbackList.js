@@ -144,25 +144,62 @@ function fillTable(feedbacks) {
     });
 }
 
-
 $(document).ready(function () {
-    // Certifique-se de que a variável feedbacks contenha os dados corretos antes de chamar esta função
-    fillTable(feedbacks);
+    let dataTable = null; // Armazenar uma referência ao DataTables
 
-    // Inicialize o DataTables aqui
-    if ($.fn.DataTable) {
-        if ($.fn.DataTable.isDataTable('#feedback-table')) {
-            $('#feedback-table').DataTable().destroy();
-        }
-
-        $('#feedback-table').DataTable({
-            "paging": true,
-            "pageLength": 5,
-            "lengthChange": false,
-            "searching": false
-        });
-    } else {
-        console.error("DataTables não está disponível. Verifique se você incluiu a biblioteca corretamente.");
+    // Função para preencher a tabela
+    function fillTable(feedbacks) {
+        // Preencha a tabela aqui
     }
-});
 
+    // Função para inicializar o DataTables
+    function initDataTable() {
+        // Certifique-se de que a variável feedbacks contenha os dados corretos antes de chamar esta função
+        fillTable(feedbacks);
+
+        // Inicialize o DataTables
+        if ($.fn.DataTable) {
+            if (dataTable !== null) {
+                // Se já existe um DataTables, destrua-o antes de criar um novo
+                dataTable.destroy();
+            }
+
+            // Inicialize o DataTables com um limite fixo de 5 linhas por página
+            dataTable = $('#feedback-table').DataTable({
+                "paging": true,
+                "pageLength": 5,
+                "lengthChange": false, // Impede a alteração de comprimento
+                "searching": true, // Ativar a pesquisa
+                "language": {
+                    "searchPlaceholder": "Procure pelo nome do produto"
+                }
+            });
+
+            // Mova o campo de pesquisa para a esquerda da tabela
+            $('#feedback-table_wrapper .dataTables_filter').css('float', 'left');
+        } else {
+            console.error("DataTables não está disponível. Verifique se você incluiu a biblioteca corretamente.");
+        }
+    }
+
+    // Chame a função para inicializar o DataTables na inicialização da página
+    initDataTable();
+
+    // Manipulador de eventos para o <select> que atualiza o DataTables quando a seleção muda
+    $('#esg').on('change', function () {
+        if (dataTable !== null) {
+            const selectedValue = this.value;
+            // Aplicar filtro com base no valor selecionado
+            if (selectedValue !== "Todos") {
+                dataTable.columns(2).search(selectedValue).draw();
+            } else {
+                // Limpar o filtro e mostrar todas as linhas
+                dataTable.columns(2).search('').draw();
+            }
+        }
+    });
+
+        $('.dataTables_filter label').contents().filter(function () {
+            return this.nodeType === 3; // 3 representa nós de texto
+        }).remove();
+});

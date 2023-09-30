@@ -208,7 +208,7 @@ function drawLogScales() {
 
     let options = {
         title: "Gráfico Geral por ESG",
-        height: 800,
+        height: 600,
         width: 1000,
         colors: ['#007129', '#F59203', '#07A8B0'],
         vAxis: {
@@ -246,7 +246,7 @@ function drawLogScalesEspecifico() {
     data.addRows(rows);
     var options = {
         title: "Gráfico de Tendência " + capitalize(atualTipoTendencia),
-        height: 800,
+        height: 600,
         width: 1000,
         colors: ['#145A32', '#FF2424'],
         vAxis: {
@@ -350,7 +350,7 @@ function drawGeoMapEspecifico() {
             region: 'BR',
             resolution: 'provinces',
             colorAxis: {colors: ['lightgreen', 'darkgreen']},
-            backgroundColor: '#ffffff',
+            backgroundColor: '#FBFBFB',
             datalessRegionColor: '#ffffff',
             defaultColor: '#f5f5f5',
             width: 800,
@@ -415,7 +415,7 @@ function drawGeoMapAll() {
             region: 'BR',
             resolution: 'provinces',
             colorAxis: {colors: ['lightgreen', 'darkgreen']},
-            backgroundColor: '#ffffff',
+            backgroundColor: '#FBFBFB',
             datalessRegionColor: '#ffffff',
             defaultColor: '#f5f5f5',
             width: 800,

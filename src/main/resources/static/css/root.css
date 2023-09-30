@@ -12,10 +12,9 @@
     --color-sec: #2a658f;
 }
 
-<<<<<<< HEAD
 h1 {
     color: #000000;
-    margin: 30px auto;
+    margin: 30px auto !important;
 }
 
 span {
@@ -38,7 +37,7 @@ body {
     color: #f4f4f4;
     font-weight: 700;
     width: 120px;
-    padding: 5px 15px;
+    padding: 5px 11px;
 }
 
 .graphic-content {
@@ -82,17 +81,34 @@ ul {
     height: 80vh;
     border: 2px solid var(--color-sec);
     border-radius: 17px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content {
+    background-color: var(--color-background2)!important;
+    display: flex;
+    justify-content: center;
+}
+
+.content2 {
+    flex-direction: row;
 }
 
 .img-circle {
     border-radius: 100px;
     margin-top: 230px;
-=======
+}
+
 .container{
     width: 100%;
 }
 .modal-title{
     width: 100%;
     text-align: center;
->>>>>>> 76a7379003d7fa26b1cc2d1d18d46316430a9d0b
+}
+
+.adjrelatorio {
+    display: flex;
+    flex-direction: column;
 }
